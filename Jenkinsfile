@@ -30,9 +30,9 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
-                    image: "talyi.jfrog.io/artifactory" + '/petclinic:latest',
+                    image: "talyi.jfrog.io/docker" + '/petclinic:latest',
                     targetRepo: 'docker',
-                    properties: 'project-name=docker1;status=stable'
+                    properties: 'project-name=jfrog-blog-post;status=stable'
                 )
             }
         }
