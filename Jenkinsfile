@@ -12,8 +12,8 @@ pipeline {
             steps {
                 rtServer (
                     id: "talyi-artifactory",
-                    url: SERVER_URL,
-                    credentialsId: CREDENTIALS
+                    url: "https://talyi.jfrog.io/artifactory",
+                    credentialsId: "admin.jfrog"
                 )
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage ('Build docker image') {
             steps {
                 script {
-                    docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/pet-clinic:latest', 'jenkins-examples/pipeline-examples/resources')
+                    docker.build("https://talyi.jfrog.io/artifactory" + '/pet-clinic:latest', 'jenkins-examples/pipeline-examples/resources')
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
-                    image: ARTIFACTORY_DOCKER_REGISTRY + '/petclinic:latest',
+                    image: "https://talyi.jfrog.io/artifactory" + '/petclinic:latest',
                     targetRepo: 'docker-local',
                     properties: 'project-name=docker1;status=stable'
                 )
