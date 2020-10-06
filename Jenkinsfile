@@ -21,7 +21,7 @@ pipeline {
         stage ('Build docker image') {
             steps {
                 script {
-                    docker.build("https://talyi.jfrog.io/artifactory" + '/pet-clinic:latest', 'jenkins-examples/pipeline-examples/resources')
+                    docker.build("https://talyi.jfrog.io/docker" + '/pet-clinic:latest')
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
                     image: "https://talyi.jfrog.io/artifactory" + '/petclinic:latest',
-                    targetRepo: 'docker-local',
+                    targetRepo: 'docker',
                     properties: 'project-name=docker1;status=stable'
                 )
             }
