@@ -55,17 +55,15 @@ pipeline {
         stage('Configure helm & add Artifactory repo') {
             steps {
                  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                   sh "helm init"
-                   sh "helm repo add artifactory talyi.jfrog.io/helm ${env.USERNAME} ${env.PASSWORD}"
+                   sh "helm repo add helm talyi.jfrog.io/helm --username ${env.USERNAME} --password ${env.PASSWORD}"
                    sh "helm repo update"
-                   sh "helm helm version"
                  }
             }
         }
 
         stage('Deploy chart pulling from Artifactory') {
             steps {
-                sh "./get_helm upgrade spring-petclinic-ci-cd-k8s-example.tgz --install artifactory/spring-petclinic-ci-cd-k8s-example.tgz"
+                sh "helm install helm/spring-petclinic-ci-cd-k8s-example.tgz"
             }
         }
     }
