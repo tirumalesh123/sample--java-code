@@ -51,12 +51,12 @@ pipeline {
                               //sh "curl -u ${env.USERNAME}:${env.PASSWORD} -O talyi.jfrog.io/generic-local/helm"
                               //sh "chmod 777 ./helm"
 
-                              sh """
+                              sh '''
                               curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
                               chmod 700 get_helm.sh
                               helm version
                               ./get_helm.sh
-                              """
+                              '''
                 }
             }
         }
