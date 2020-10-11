@@ -51,9 +51,12 @@ pipeline {
                               //sh "curl -u ${env.USERNAME}:${env.PASSWORD} -O talyi.jfrog.io/generic-local/helm"
                               //sh "chmod 777 ./helm"
 
-                              sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
-                              sh "chmod 700 get_helm.sh"
-                              sh "./get_helm.sh"
+                              sh """
+                              curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
+                              chmod 700 get_helm.sh
+                              helm version
+                              ./get_helm.sh
+                              """
                 }
             }
         }
@@ -64,6 +67,7 @@ pipeline {
                  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                    sh "./get_helm repo add artifactory talyi.jfrog.io/helm ${env.USERNAME} ${env.PASSWORD}"
                    sh "./get_helm repo update"
+                   sh "./get_helm helm version"
                  }
             }
         }
