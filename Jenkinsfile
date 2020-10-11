@@ -69,7 +69,9 @@ pipeline {
         }
 
         stage('Deploy chart pulling from Artifactory') {
-            sh "./get_helm upgrade spring-petclinic-ci-cd-k8s-example.tgz --install artifactory/spring-petclinic-ci-cd-k8s-example.tgz"
+            steps {
+                sh "./get_helm upgrade spring-petclinic-ci-cd-k8s-example.tgz --install artifactory/spring-petclinic-ci-cd-k8s-example.tgz"
+            }
         }
     }
 }
