@@ -47,25 +47,18 @@ pipeline {
 
         stage('Install helm') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                              //sh "curl -u ${env.USERNAME}:${env.PASSWORD} -O talyi.jfrog.io/generic-local/helm"
-                              //sh "chmod 777 ./helm"
-
-                              sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
-                              sh "chmod 700 get_helm.sh"
-                              sh "./get_helm.sh"
-                              sh "helm version"
-                }
+                  sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
+                  sh "chmod 700 get_helm.sh && helm version"
             }
         }
 
         stage('Configure helm & add Artifactory repo') {
             steps {
-                 sh './get_helm init'
                  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                   sh "./get_helm repo add artifactory talyi.jfrog.io/helm ${env.USERNAME} ${env.PASSWORD}"
-                   sh "./get_helm repo update"
-                   sh "./get_helm helm version"
+                   sh "helm init"
+                   sh "helm repo add artifactory talyi.jfrog.io/helm ${env.USERNAME} ${env.PASSWORD}"
+                   sh "helm repo update"
+                   sh "helm helm version"
                  }
             }
         }
