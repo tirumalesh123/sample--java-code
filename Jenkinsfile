@@ -21,7 +21,7 @@ pipeline {
         stage ('Build docker image') {
             steps {
                 script {
-                    docker.build("talyi.jfrog.io/docker" + '/pet-clinic:latest')
+                    docker.build("talyi-docker.jfrog.io/" + 'pet-clinic:latest')
                 }
             }
         }
