@@ -73,6 +73,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh "kubectl config view"
+                    sh "echo $KUBECONFIG_CONTENT"
                     sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
                 }
             }
