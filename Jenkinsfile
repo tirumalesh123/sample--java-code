@@ -67,9 +67,8 @@ pipeline {
                     sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
                     sh "kubectl config --kubeconfig=kubeconfig use-context gke_soleng-dev_us-central1-c_my-first-cluster-1"
                     sh "pwd"
-                    sh "export KUBECONFIG=kubeconfig"
+                    sh "export KUBECONFIG=/var/jenkins_home/workspace/spring-petclinic-ci-cd-k8s-example/kubeconfig"
                     sh "kubectl config view"
-                    sh "echo $KUBECONFIG"
                     sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name --kube-context=gke_soleng-dev_us-central1-c_my-first-cluster-1"
                 }
             }
