@@ -72,7 +72,7 @@ pipeline {
         stage('Deploy chart pulling from Artifactory') {
             steps {
                 withCredentials([file(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
-                    sh "cp $KUBECONFIG_CONTENT ~/.kube/config && kubectl config view"
+                    sh "touch ~/.kube/config && cp $KUBECONFIG_CONTENT ~/.kube/config && kubectl config view"
                     sh "kubectl config current-context"
                     sh "echo $KUBECONFIG_CONTENT"
                     sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
