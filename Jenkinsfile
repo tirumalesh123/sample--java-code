@@ -63,7 +63,7 @@ pipeline {
 
         stage('Deploy chart pulling from Artifactory') {
             steps {
-                sh "helm install helm/spring-petclinic-ci-cd-k8s-example.tgz --generate-name"
+                sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
             }
         }
     }
