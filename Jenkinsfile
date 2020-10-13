@@ -63,7 +63,9 @@ pipeline {
 
         stage('Deploy chart pulling from Artifactory') {
             steps {
-                sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
+                withCredentials([file(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+                    sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
+                }
             }
         }
     }
