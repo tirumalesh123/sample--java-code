@@ -45,14 +45,6 @@ pipeline {
             }
         }
 
-        stage('Install Kubernetes') {
-            steps {
-                  sh "curl -LO 'https://storage.googleapis.com/kubernetes-release/release/v1.19.2/bin/linux/amd64/kubectl'"
-                  sh "chmod +x ./kubectl && sudo mv ./kubectl /usr/local/bin/kubectl"
-                  sh "kubectl version --client"
-            }
-        }
-
         stage('Install Helm') {
             steps {
                   sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
@@ -71,10 +63,8 @@ pipeline {
 
         stage('Deploy chart pulling from Artifactory') {
             steps {
-                withCredentials([file(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
-                    sh "mkdir ~/.kube && touch ~/.kube/config && sudo cp $KUBECONFIG_CONTENT ~/.kube/config && kubectl config view"
+                withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh "kubectl config current-context"
-                    sh "echo $KUBECONFIG_CONTENT"
                     sh "helm install helm/spring-petclinic-ci-cd-k8s-example --generate-name"
                 }
             }
