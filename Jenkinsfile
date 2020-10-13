@@ -66,6 +66,7 @@ pipeline {
                 withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
                     sh "kubectl config --kubeconfig=kubeconfig use-context gke_soleng-dev_us-central1-c_my-first-cluster-1"
+                    sh "pwd"
                     sh "export KUBECONFIG=kubeconfig"
                     sh "kubectl config view"
                     sh "echo $KUBECONFIG"
