@@ -17,6 +17,18 @@ pipeline {
                 )
             }
         }
+        
+        stage('Build Maven project') {
+            steps {
+                rtMavenRun (
+                    tool: 'Maven 3.3.9',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "talyi-artifactory",
+                    resolverId: "talyi-artifactory"
+                )
+            }
+        }
 
         stage ('Build docker image') {
             steps {
