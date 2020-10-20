@@ -24,8 +24,8 @@ pipeline {
                     tool: 'Maven 3.3.9',
                     pom: 'pom.xml',
                     goals: 'clean install',
-                    deployerId: "talyi-artifactory",
-                    resolverId: "talyi-artifactory"
+                    deployerId: "emea-admin",
+                    resolverId: "emea-admin"
                 )
             }
         }
