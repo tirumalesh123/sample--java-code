@@ -15,6 +15,22 @@ pipeline {
                     url: "https://talyi.jfrog.io/artifactory",
                     credentialsId: "admin.jfrog"
                 )
+
+                rtMavenResolver (
+                    id: 'maven-resolver',
+                    serverId: 'talyi-artifactory',
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )  
+                 
+                rtMavenDeployer (
+                    id: 'maven-deployer',
+                    serverId: 'talyi-artifactory',
+                    releaseRepo: 'libs-release-local',
+                    snapshotRepo: 'libs-snapshot-local',
+                    threads: 6,
+                    properties: ['BinaryPurpose=Technical-BlogPost', 'Team=DevOps-Acceleration']
+                )
             }
         }
         
@@ -24,8 +40,8 @@ pipeline {
                     tool: 'Maven 3.3.9',
                     pom: 'pom.xml',
                     goals: 'clean install',
-                    deployerId: "emea-admin",
-                    resolverId: "emea-admin"
+                    deployerId: "maven-deployer",
+                    resolverId: "maven-resolver"
                 )
             }
         }
