@@ -65,7 +65,6 @@ pipeline {
             steps {
                 withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
-                    sh "kubectl config view --raw >~/.kube/config"
                     sh "helm install helm/spring-petclinic-ci-cd-k8s-chart --generate-name --kube-context=gke_soleng-dev_us-west1-a_artifactory-ha-cluster"
                 }
             }
