@@ -43,10 +43,7 @@ pipeline {
                     deployerId: "maven-deployer",
                     resolverId: "maven-resolver"
                 )
-            }
-
-            {	
-                scripts {
+                script {
                   sh "ls -la"
                 }
             }
