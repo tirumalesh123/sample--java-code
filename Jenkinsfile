@@ -44,7 +44,7 @@ pipeline {
                     resolverId: "maven-resolver"
                 )
                 script {
-                  sh "ls -la"
+                  sh "cd target && ls -la"
                 }
             }
         }
