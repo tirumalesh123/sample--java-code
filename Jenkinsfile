@@ -43,14 +43,14 @@ pipeline {
                     deployerId: "maven-deployer",
                     resolverId: "maven-resolver"
                 )
-                script {
-                  sh "cd target && ls -la"
-                }
             }
         }
 
         stage ('Build docker image') {
             steps {
+                script {
+                  sh "cd target && ls -la"
+                }
                 script {
                     docker.build("talyi-docker.jfrog.io/" + 'pet-clinic:latest')
                 }
