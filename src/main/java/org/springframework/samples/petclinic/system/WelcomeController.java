@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * The classes in this package represent utilities used by the domain.
- */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.system;
 
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+class WelcomeController {
+
+    @GetMapping("/")
+    public String welcome() {
+        return "welcome";
+    }
+}
