@@ -44,6 +44,12 @@ pipeline {
                     resolverId: "maven-resolver"
                 )
             }
+
+            {	
+                scripts {
+                  sh "ls -la"
+                }
+            }
         }
 
         stage ('Build docker image') {
