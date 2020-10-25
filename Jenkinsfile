@@ -96,10 +96,8 @@ pipeline {
             steps {
                 withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''echo "$KUBECONFIG_CONTENT" > config'''
-		    sh "cp config /home/jenkins/.kube/"
-	            sh "chmod 777 /home/jenkins/.kube/config && adduser jenkins"
-                    sh "helm version"
-		    sh "helm ls"
+		    sh "cp config /jenkins_home/.kube && chmod 777 /jenkins_home/.kube/config"
+                    sh "helm version && helm ls"
                     sh "helm upgrade --install spring-petclinic-ci-cd-k8s-example helm/spring-petclinic-ci-cd-k8s-chart --kube-context=gke_soleng-dev_us-west1-a_artifactory-ha-cluster --set=image.tag=1.0.${env.BUILD_NUMBER}"
                 }
             }
