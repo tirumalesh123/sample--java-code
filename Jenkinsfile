@@ -52,7 +52,7 @@ pipeline {
                   sh "cd target && ls -la"
                 }
                 script {
-                    docker.build("talyi-docker.jfrog.io/" + 'pet-clinic:1.0')
+                    docker.build("talyi-docker.jfrog.io/" + 'pet-clinic:1.0.${env.BUILD_NUMBER}')
                 }
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
-                    image: "talyi-docker.jfrog.io/" + 'pet-clinic:1.0',
+                    image: "talyi-docker.jfrog.io/" + 'pet-clinic:1.0.${env.BUILD_NUMBER}',
                     targetRepo: 'docker',
                     properties: 'project-name=jfrog-blog-post;status=stable'
                 )
@@ -96,7 +96,7 @@ pipeline {
             steps {
                 withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh '''echo "$KUBECONFIG_CONTENT" > kubeconfig'''
-                    sh "helm upgrade --install spring-petclinic-ci-cd-k8s-example helm/spring-petclinic-ci-cd-k8s-chart --kube-context=gke_soleng-dev_us-west1-a_artifactory-ha-cluster"
+                    sh "helm upgrade --install spring-petclinic-ci-cd-k8s-example helm/spring-petclinic-ci-cd-k8s-chart --kube-context=gke_soleng-dev_us-west1-a_artifactory-ha-cluster --set=image.tag=1.0.${env.BUILD_NUMBER}"
                 }
             }
         }
