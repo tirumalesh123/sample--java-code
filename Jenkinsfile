@@ -52,7 +52,7 @@ pipeline {
                   sh "cd target && ls -la"
                 }
                 script {
-                    docker.build("talyi-docker.jfrog.io/" + 'pet-clinic:1.0.${env.BUILD_NUMBER}')
+                    docker.build("talyi-docker.jfrog.io/" + "pet-clinic:1.0.${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
-                    image: "talyi-docker.jfrog.io/" + 'pet-clinic:1.0.${env.BUILD_NUMBER}',
+                    image: "talyi-docker.jfrog.io/" + "pet-clinic:1.0.${env.BUILD_NUMBER}",
                     targetRepo: 'docker',
                     properties: 'project-name=jfrog-blog-post;status=stable'
                 )
