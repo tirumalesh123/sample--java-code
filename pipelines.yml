@@ -29,6 +29,13 @@ pipelines:
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: docker.bintray.io/jfrog/pipelines-u18node
+                tag: "12.18.2"
+                autoPull: true
           integrations:
             - name: app_spring_pet_clinic_k8s_cluster_integration
             - name: gcloud_k8s_creds
