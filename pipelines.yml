@@ -31,6 +31,7 @@ pipelines:
         configuration:
           integrations:
             - name: app_spring_pet_clinic_k8s_cluster_integration
+            - name: gcloud_k8s_creds
           inputSteps:
             - name: start_by_hook
           inputResources:
