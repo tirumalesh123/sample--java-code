@@ -10,6 +10,7 @@ resources:
       sourceArtifactory: artifactory_eu
       repository: helm
       chart: spring-petclinic-ci-cd-k8s-chart
+      version: '1.0.0'
 
 pipelines:
   - name: deploy_spring_pet_clinic
