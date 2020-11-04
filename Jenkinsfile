@@ -8,7 +8,7 @@ pipeline {
             }
         }
 
-        stage ('Artifactory configuration') {
+        stage ('Artifactory Configuration') {
             steps {
                 rtServer (
                     id: "talyi-artifactory",
@@ -34,7 +34,7 @@ pipeline {
             }
         }
         
-        stage('Build Maven project') {
+        stage('Build Maven Project') {
             steps {
                 rtMavenRun (
                     tool: 'Maven 3.3.9',
@@ -46,7 +46,7 @@ pipeline {
             }
         }
 
-        stage ('Build docker image') {
+        stage ('Build Docker Image') {
             steps {
                 script {
                   sh "cd target && ls -la"
@@ -57,7 +57,7 @@ pipeline {
             }
         }
 
-        stage ('Push image to Artifactory') {
+        stage ('Push Image to Artifactory') {
             steps {
                 rtDockerPush(
                     serverId: "talyi-artifactory",
@@ -68,7 +68,7 @@ pipeline {
             }
         }
 
-        stage ('Publish build info') {
+        stage ('Publish Build Info') {
             steps {
                 rtPublishBuildInfo (
                     serverId: "talyi-artifactory"
@@ -85,7 +85,7 @@ pipeline {
             }
         }
 
-        stage('Configure helm & add Artifactory repo') {
+        stage('Configure Helm & Artifactory') {
             steps {
                  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                    sh """
@@ -96,7 +96,7 @@ pipeline {
             }
         }
 
-        stage('Deploy chart pulling from Artifactory') {
+        stage('Deploy Chart') {
             steps {
                 withCredentials([kubeconfigContent(credentialsId: 'k8s-cluster-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                     sh """
