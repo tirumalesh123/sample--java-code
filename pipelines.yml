@@ -10,7 +10,7 @@ resources:
       sourceArtifactory: artifactory_eu
       repository: helm
       chart: spring-petclinic-ci-cd-k8s-chart
-      version: 1.0.0
+      version: '1.0.0'
 
 pipelines:
   - name: deploy_spring_pet_clinic
@@ -32,6 +32,7 @@ pipelines:
           integrations:
             - name: app_spring_pet_clinic_k8s_cluster_integration
             - name: gcloud_k8s_creds
+          helmVersion: 3
           inputSteps:
             - name: start_by_hook
           inputResources:
