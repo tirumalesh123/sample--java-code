@@ -91,7 +91,7 @@ pipeline {
                    sh """
                     helm repo add helm https://talyi.jfrog.io/artifactory/helm --username ${env.USERNAME} --password ${env.PASSWORD}
                     helm repo update
-                   ""
+                   """
                  }
             }
         }
