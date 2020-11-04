@@ -49,6 +49,3 @@ pipelines:
           releaseName: spring-petclinic-ci-cd-k8s-example
           valueFilePaths:
             - values.yaml
-        execution:
-          onStart:
-            - helm init --upgrade
