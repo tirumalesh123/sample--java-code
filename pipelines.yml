@@ -9,14 +9,8 @@ resources:
     configuration:
       sourceArtifactory: artifactory_eu
       repository: helm
-      chart: helmreporesource
-      version: '1.0'
-      
-  - name: helmreporesource
-    type: GitRepo
-    configuration:
-      gitProvider: hza_github
-      path: HamzaZFrog/k8s-helm
+      chart: spring-petclinic-ci-cd-k8s-chart
+      version: ''
 
 pipelines:
   - name: deploy_spring_pet_clinic
@@ -31,19 +25,18 @@ pipelines:
             - echo "job triggered by resource-> $step_triggered_by_resource_name"
             - echo "$res_incoming_basic_hook_payload" | jq '.' > payload.json
             - echo "$(read_json payload.json my.nested.object)"
-
-
-  - name: deploy_helm_chart
-    type: HelmDeploy
-    configuration:
-      integrations:
-        - name: app_spring_pet_clinic_k8s_cluster_integration
-      inputResources:
-        - name: helm_chart_resource
-      releaseName: helmreporesource
-      flags: '--namespace dev'
-      valueFilePaths:
-        - values.yaml
-    execution:
-      onStart:
-        - helm init --upgrade
+            
+      - name: deploy_helm_chart
+        type: HelmDeploy
+        configuration:
+          integrations:
+            - name: app_spring_pet_clinic_k8s_cluster_integration
+          inputResources:
+            - name: helm_chart_resource
+          releaseName: helmreporesource
+          flags: '--namespace dev'
+          valueFilePaths:
+            - values.yaml
+        execution:
+          onStart:
+            - helm init --upgrade
