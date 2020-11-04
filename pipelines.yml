@@ -40,12 +40,13 @@ pipelines:
             - name: app_spring_pet_clinic_k8s_cluster_integration
             - name: gcloud_k8s_creds
           helmVersion: 3
+          lint: true
+          flags: --kube-context=gke_soleng-dev_us-west1-a_artifactory-ha-cluster --set=image.tag=1.0.100
           inputSteps:
             - name: start_by_hook
           inputResources:
             - name: spring_helm_chart_resource
-          releaseName: helmreporesource
-          flags: '--namespace dev'
+          releaseName: spring-petclinic-ci-cd-k8s-example
           valueFilePaths:
             - values.yaml
         execution:
