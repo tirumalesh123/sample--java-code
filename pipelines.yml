@@ -31,6 +31,8 @@ pipelines:
         configuration:
           integrations:
             - name: app_spring_pet_clinic_k8s_cluster_integration
+          inputSteps:
+            - name: deploy_spring_pet_clinic
           inputResources:
             - name: spring_helm_chart_resource
           releaseName: helmreporesource
