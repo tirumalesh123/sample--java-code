@@ -4,7 +4,7 @@ resources:
     configuration:
       webhookName: in_hook_basic
  
-  - name: helm_chart_resource
+  - name: spring_helm_chart_resource
     type: HelmChart
     configuration:
       sourceArtifactory: artifactory_eu
@@ -25,14 +25,14 @@ pipelines:
             - echo "job triggered by resource-> $step_triggered_by_resource_name"
             - echo "$res_incoming_basic_hook_payload" | jq '.' > payload.json
             - echo "$(read_json payload.json my.nested.object)"
-            
+
       - name: deploy_helm_chart
         type: HelmDeploy
         configuration:
           integrations:
             - name: app_spring_pet_clinic_k8s_cluster_integration
           inputResources:
-            - name: helm_chart_resource
+            - name: spring_helm_chart_resource
           releaseName: helmreporesource
           flags: '--namespace dev'
           valueFilePaths:
