@@ -1,0 +1,10 @@
+version: 1
+type: maven
+resolver:
+  serverId: talyi
+  snapshotRepo: libs-snapshot
+  releaseRepo: libs-release
+deployer:
+  serverId: talyi
+  snapshotRepo: libs-snapshot-local
+  releaseRepo: libs-release

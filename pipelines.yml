@@ -27,7 +27,7 @@ pipelines:
           autoPublishBuildInfo: true
           mvnCommand: clean install -s settings.xml
           configFileLocation: .
-          configFileName: pom.xml
+          configFileName: maven.yaml
           inputResources:
             - name: calculate_repository_resource
           outputResources:
