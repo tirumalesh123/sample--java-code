@@ -12,7 +12,7 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: artifactory_eu
-      buildName: calculate_ci_job
+      buildName: build_and_dockerize_spring_pet_clinic
       buildNumber: 1
 
 pipelines:
@@ -30,6 +30,8 @@ pipelines:
           configFileName: config.file.yml
           inputResources:
             - name: calculate_repository_resource
+          outputResources:
+            - name: appl_build_info
           runtime:
             type: image
             image:
