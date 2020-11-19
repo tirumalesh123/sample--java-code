@@ -27,7 +27,7 @@ pipelines:
           autoPublishBuildInfo: true
           mvnCommand: clean install -s settings.xml
           configFileLocation: .
-          configFileName: config.file.yml
+          configFileName: pom.xml
           inputResources:
             - name: calculate_repository_resource
           outputResources:
