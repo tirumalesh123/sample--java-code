@@ -76,6 +76,7 @@ pipeline {
             }
         }
 
+
         stage('Trigger JFrog Pipelines') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'incoming-web-hook-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
