@@ -22,7 +22,7 @@ pipelines:
         type: MvnBuild
         configuration:
           integrations:
-            - name: tals_artifactory_integration
+            - name: artifactory_eu
           sourceLocation: .
           autoPublishBuildInfo: true
           mvnCommand: clean install -s settings.xml
