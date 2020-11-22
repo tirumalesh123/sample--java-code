@@ -80,7 +80,7 @@ pipelines:
         configuration:
           jenkinsJobName: spring-petclinic-ci-cd-k8s-example
           inputResources:
-            - name: app_docker
+            - name: dbp_image
           integrations:
             - name: jenkins_server              
 
