@@ -24,6 +24,16 @@ resources:
       imageTag: 1.0.0
       autoPull: true      
 
+  - name: spring_files
+    type: FileSpec
+    configuration:
+      sourceArtifactory: artifactory_eu
+      pattern: libs-snapshot-local
+      target: target/      
+      buildName: build_and_dockerize_spring_pet_clinic            
+      sortBy: created
+      limit: 1
+
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
     steps: 
@@ -62,15 +72,9 @@ pipelines:
           dockerImageTag: 1.0.${run_number}
           inputResources:
             - name: calculate_repository_resource
-            - name: appl_build_info
+            - name: spring_files
           integrations:
             - name: artifactory_eu
-          onStart:
-            - ls -la
-            - cd $res_calculate_repository_resource_resourcePath
-            - ls -la
-            - mkdir target
-            - jfrog rt dl libs-snapshot-local --build=build_and_dockerize_spring_pet_clinic
 
       - name: docker_push
         type: DockerPush
