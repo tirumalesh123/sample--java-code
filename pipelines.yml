@@ -79,10 +79,10 @@ pipelines:
         type: Jenkins
         configuration:
           jenkinsJobName: spring-petclinic-ci-cd-k8s-example
-        inputResources:
-          - name: app_docker
-        integrations:
-          - name: jenkins_server              
+          inputResources:
+            - name: app_docker
+          integrations:
+            - name: jenkins_server              
 
 # CI in Jenkins, CD in Pipelines
 # resources:
