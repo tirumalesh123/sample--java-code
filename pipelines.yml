@@ -67,6 +67,9 @@ pipelines:
             - name: spring_files
           integrations:
             - name: artifactory_eu
+        execution:
+          onStart:
+            - echo "bla bla"            
 
       - name: docker_push
         type: DockerPush
