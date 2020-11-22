@@ -62,14 +62,15 @@ pipelines:
           dockerImageTag: 1.0.${run_number}
           inputResources:
             - name: calculate_repository_resource
+            - name: appl_build_info
           integrations:
             - name: artifactory_eu
-          # onStart:
-          #   - ls -la
-          #   - cd $res_calculate_repository_resource_resourcePath
-          #   - ls -la
-          #   - mkdir target
-          #   - jfrog rt dl libs-snapshot-local --build=build_and_dockerize_spring_pet_clinic
+          onStart:
+            - ls -la
+            - cd $res_calculate_repository_resource_resourcePath
+            - ls -la
+            - mkdir target
+            - jfrog rt dl libs-snapshot-local --build=build_and_dockerize_spring_pet_clinic
 
       - name: docker_push
         type: DockerPush
