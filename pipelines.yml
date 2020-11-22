@@ -53,6 +53,8 @@ pipelines:
       - name: docker_build
         type: DockerBuild
         configuration:
+          inputSteps:
+            - name: build_app          
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
@@ -66,6 +68,8 @@ pipelines:
       - name: docker_push
         type: DockerPush
         configuration:
+          inputSteps:
+            - name: docker_build          
           affinityGroup: dbp_group
           targetRepository: docker-local
           integrations:
@@ -78,6 +82,8 @@ pipelines:
       - name: trigger_jenkins
         type: Jenkins
         configuration:
+          inputSteps:
+            - name: docker_push
           jenkinsJobName: spring-petclinic-ci-cd-k8s-example
           inputResources:
             - name: dbp_image
