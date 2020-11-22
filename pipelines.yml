@@ -31,7 +31,6 @@ resources:
       pattern: libs-snapshot-local
       target: target/      
       buildName: build_and_dockerize_spring_pet_clinic            
-      sortBy: created
       limit: 1
 
 pipelines:
@@ -52,13 +51,6 @@ pipelines:
             - name: calculate_repository_resource
           outputResources:
             - name: appl_build_info
-          # runtime:
-          #   type: image
-          #   image:
-          #     auto:
-          #       language: java
-          #       versions:
-          #         - "11"
 
       - name: docker_build
         type: DockerBuild
