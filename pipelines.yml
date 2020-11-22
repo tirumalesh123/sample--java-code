@@ -51,6 +51,9 @@ pipelines:
             - name: calculate_repository_resource
           outputResources:
             - name: appl_build_info
+        execution:
+          onStart:
+            - curl http://35.228.191.8:8080            
 
       # - name: docker_build
       #   type: DockerBuild
@@ -98,9 +101,6 @@ pipelines:
             - name: dbp_image
           integrations:
             - name: jenkins_server  
-        execution:
-          onStart:
-            - curl http://35.228.191.8:8080
 
 # CI in Jenkins, CD in Pipelines
 # resources:
