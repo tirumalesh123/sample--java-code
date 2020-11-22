@@ -74,8 +74,6 @@ pipelines:
           targetRepository: docker-local
           integrations:
             - name: artifactory_eu
-          inputSteps:
-            - name: docker_build
           outputResources:
             - name: dbp_image        
 
