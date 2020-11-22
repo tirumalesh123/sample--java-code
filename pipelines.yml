@@ -31,7 +31,6 @@ resources:
       pattern: /libs-snapshot-local/org/springframework/samples/spring-petclinic/*.jar
       target: target/      
       buildName: build_and_dockerize_spring_pet_clinic
-      sortBy: created
       sortOrder: desc
       limit: 1
 
