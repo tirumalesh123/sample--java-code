@@ -28,12 +28,9 @@ resources:
     type: FileSpec
     configuration:
       sourceArtifactory: artifactory_eu
-      pattern: /libs-snapshot-local/org/springframework/samples/spring-petclinic/
+      pattern: /libs-snapshot-local/org/springframework/samples/spring-petclinic/*${run_number}*.jar
       target: target/      
       buildName: build_and_dockerize_spring_pet_clinic
-      buildNumber: "${run_number}"
-      # sortBy: "created"
-      # sortOrder: "desc"
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
