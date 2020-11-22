@@ -30,7 +30,7 @@ resources:
       sourceArtifactory: artifactory_eu
       pattern: libs-snapshot-local
       target: target/      
-      aql: items.find({"@build.name":{"$eq":"build_and_dockerize_spring_pet_clinic"}}).sort({"$asc" : ["created"]}).limit(2)
+      aql: "items.find({"@build.name":{"$eq":"build_and_dockerize_spring_pet_clinic"}}).sort({"$asc" : ["created"]}).limit(2)"
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
