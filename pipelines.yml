@@ -31,7 +31,7 @@ resources:
       pattern: libs-snapshot-local
       target: target/      
       buildName: build_and_dockerize_spring_pet_clinic
-      limit: 2
+      buildNumber: ${run_number}
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
