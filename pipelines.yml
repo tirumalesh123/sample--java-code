@@ -28,8 +28,10 @@ resources:
     type: FileSpec
     configuration:
       sourceArtifactory: artifactory_eu
+      pattern: libs-snapshot-local
       target: target/      
-      build: build_and_dockerize_spring_pet_clinic
+      buildName: build_and_dockerize_spring_pet_clinic
+      limit: 2
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
