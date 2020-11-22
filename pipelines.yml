@@ -67,13 +67,17 @@ pipelines:
             - name: spring_files
           integrations:
             - name: artifactory_eu
-        execution:
-          onStart:
-            - echo "bla bla"            
 
       - name: docker_push
         type: DockerPush
         configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: docker.bintray.io/jfrog/pipelines-u18node
+                tag: "12.18.2"
+                autoPull: true
           inputSteps:
             - name: docker_build          
           affinityGroup: dbp_group
