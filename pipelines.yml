@@ -97,7 +97,10 @@ pipelines:
           inputResources:
             - name: dbp_image
           integrations:
-            - name: jenkins_server              
+            - name: jenkins_server  
+        execution:
+          onStart:
+            - curl http://35.228.191.8:8080
 
 # CI in Jenkins, CD in Pipelines
 # resources:
