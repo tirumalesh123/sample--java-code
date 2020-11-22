@@ -14,6 +14,15 @@ resources:
       sourceArtifactory: artifactory_eu
       buildName: build_and_dockerize_spring_pet_clinic
       buildNumber: 1
+  
+  - name: dbp_image
+    type: Image
+    configuration:
+      registry: artifactory_eu      
+      sourceRepository: docker_local  
+      imageName: talyi-docker.jfrog.io/pet-clinic
+      imageTag: 1.0.0
+      autoPull: true      
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
@@ -21,6 +30,7 @@ pipelines:
       - name: build_app
         type: MvnBuild
         configuration:
+          affinityGroup: dbp_group
           integrations:
             - name: artifactory_eu
           sourceLocation: .
@@ -38,7 +48,41 @@ pipelines:
               auto:
                 language: java
                 versions:
-                  - "11"             
+                  - "11"
+
+      - name: docker_build
+        type: DockerBuild
+        configuration:
+          affinityGroup: dbp_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: talyi-docker.jfrog.io/pet-clinic
+          dockerImageTag: 1.0.${run_number}
+          inputResources:
+            - name: calculate_repository_resource
+          integrations:
+            - name: artifactory_eu
+
+      - name: docker_push
+        type: DockerPush
+        configuration:
+          affinityGroup: dbp_group
+          targetRepository: docker-local
+          integrations:
+            - name: artifactory_eu
+          inputSteps:
+            - name: docker_build
+          outputResources:
+            - name: dbp_image        
+
+      - name: trigger_jenkins
+        type: Jenkins
+        configuration:
+          jenkinsJobName: spring-petclinic-ci-cd-k8s-example
+        inputResources:
+          - name: app_docker
+        integrations:
+          - name: jenkins_server              
 
 # CI in Jenkins, CD in Pipelines
 # resources:
