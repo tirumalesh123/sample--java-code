@@ -29,8 +29,7 @@ resources:
     configuration:
       sourceArtifactory: artifactory_eu
       target: target/      
-      buildName: build_and_dockerize_spring_pet_clinic
-      limit: 2
+      build: build_and_dockerize_spring_pet_clinic
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
