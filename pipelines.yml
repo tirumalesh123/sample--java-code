@@ -67,8 +67,10 @@ pipelines:
         execution:
           onStart:
             - jfrog rt dl libs-snapshot-local --build=build_and_dockerize_spring_pet_clinic  --flat=true
-            - mkdir target && cp spring-petclinic-*.jar target/
-            - mv -v target $res_src_resourcePath
+            - mkdir target
+            - cp spring-petclinic-*.jar target/
+            - pwd
+            - mv -v target ${res_src_resourcePath}
 
       - name: docker_push
         type: DockerPush
