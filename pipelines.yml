@@ -95,8 +95,7 @@ pipelines:
         type: Jenkins
         configuration:
           inputSteps:
-            # - name: docker_push
-              - name: build_app
+              - name: docker_push
           jenkinsJobName: spring-petclinic-ci-cd-k8s-example
           inputResources:
             - name: dbp_image
