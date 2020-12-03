@@ -53,42 +53,49 @@ pipelines:
             - name: appl_build_info
         execution:
           onStart:
-            - curl http://35.228.191.8:8080            
+            - curl http://35.188.219.77:8080            
 
-      # - name: docker_build
-      #   type: DockerBuild
-      #   configuration:
-      #     inputSteps:
-      #       - name: build_app          
-      #     affinityGroup: dbp_group
-      #     dockerFileLocation: .
-      #     dockerFileName: Dockerfile
-      #     dockerImageName: talyi-docker.jfrog.io/pet-clinic
-      #     dockerImageTag: 1.0.${run_number}
-      #     inputResources:
-      #       - name: calculate_repository_resource
-      #       - name: spring_files
-      #     integrations:
-      #       - name: artifactory_eu
+      - name: docker_build
+        type: DockerBuild
+        configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: docker.bintray.io/jfrog/pipelines-u18node
+                tag: "12.18.2"
+                autoPull: true          
+          inputSteps: 
+            - name: build_app          
+          affinityGroup: dbp_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: talyi-docker.jfrog.io/pet-clinic
+          dockerImageTag: 1.0.${run_number}
+          inputResources:
+            - name: calculate_repository_resource
+            - name: spring_files
+          integrations:
+            - name: artifactory_eu
 
-      # - name: docker_push
-      #   type: DockerPush
-      #   configuration:
-      #     runtime:
-      #       type: image
-      #       image:
-      #         custom:
-      #           name: docker.bintray.io/jfrog/pipelines-u18node
-      #           tag: "12.18.2"
-      #           autoPull: true
-      #     inputSteps:
-      #       - name: docker_build          
-      #     affinityGroup: dbp_group
-      #     targetRepository: docker-local
-      #     integrations:
-      #       - name: artifactory_eu
-      #     outputResources:
-      #       - name: dbp_image        
+      - name: docker_push
+        type: DockerPush
+        configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: docker.bintray.io/jfrog/pipelines-u18node
+                tag: "12.18.2"
+                autoPull: true
+          inputSteps:
+            - name: docker_build          
+          affinityGroup: dbp_group
+          targetRepository: docker-local
+          integrations:
+            - name: artifactory_eu
+          outputResources:
+            - name: dbp_image        
 
       - name: trigger_jenkins
         type: Jenkins
