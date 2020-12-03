@@ -24,16 +24,6 @@ resources:
       imageTag: 1.0.0
       autoPull: true      
 
-  - name: spring_files
-    type: FileSpec
-    configuration:
-      sourceArtifactory: artifactory_eu
-      pattern: /libs-snapshot-local/org/springframework/samples/spring-petclinic/*.jar
-      target: target/      
-      buildName: build_and_dockerize_spring_pet_clinic
-      limit: 1
-      sortBy: created
-
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
     steps: 
@@ -51,10 +41,7 @@ pipelines:
           inputResources:
             - name: calculate_repository_resource
           outputResources:
-            - name: appl_build_info
-        execution:
-          onStart:
-            - curl http://35.188.219.77:8080            
+            - name: appl_build_info         
 
       - name: docker_build
         type: DockerBuild
@@ -75,9 +62,11 @@ pipelines:
           dockerImageTag: 1.0.${run_number}
           inputResources:
             - name: calculate_repository_resource
-            - name: spring_files
           integrations:
             - name: artifactory_eu
+        execution:
+          onStart:
+            - jfrog rt dl libs-snapshot-local --build=build_and_dockerize_spring_pet_clinic  --flat=true
 
       - name: docker_push
         type: DockerPush
