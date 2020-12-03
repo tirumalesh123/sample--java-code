@@ -64,7 +64,7 @@ pipelines:
             image:
               custom:
                 name: docker.bintray.io/jfrog/pipelines-u18node
-                tag: "12.18.2"
+                tag: "0.0.0-m000"
                 autoPull: true          
           inputSteps: 
             - name: build_app          
