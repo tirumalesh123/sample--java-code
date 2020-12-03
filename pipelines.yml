@@ -70,7 +70,7 @@ pipelines:
             - mkdir target
             - cp spring-petclinic-*.jar target/
             - pwd
-            - mv -v target ${res_src_resourcePath}
+            - mv -v target $res_calculate_repository_resource_resourcePath
 
       - name: docker_push
         type: DockerPush
