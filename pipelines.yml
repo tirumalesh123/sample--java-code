@@ -31,7 +31,8 @@ resources:
       pattern: /libs-snapshot-local/org/springframework/samples/spring-petclinic/*.jar
       target: target/      
       buildName: build_and_dockerize_spring_pet_clinic
-      limit: 3
+      limit: 1
+      sortBy: created
 
 pipelines:
   - name: build_and_dockerize_spring_pet_clinic
