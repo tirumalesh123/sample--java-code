@@ -2,6 +2,14 @@ pipeline {
     agent any
 
     stages {
+       stage('Report to Pipelines') {
+            steps {
+              jfPipelines (
+                reportStatus: "SUCCESS"
+              )
+            }
+        }
+
         stage('Install Helm') {
             steps {
                   sh """
