@@ -99,8 +99,8 @@ pipelines:
           jenkinsJobName: spring-petclinic-ci-cd-k8s-example
           inputResources:
             - name: dbp_image
-          integrations:
-            - name: jenkins_server  
+          # integrations:
+          #   - name: jenkins_server  
 
 # CI in Jenkins, CD in Pipelines
 # resources:
