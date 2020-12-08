@@ -100,7 +100,7 @@ pipelines:
           inputResources:
             - name: dbp_image
           integrations:
-            - name: jenkins_int  
+            - name: new_jenk_int  
 
 # CI in Jenkins, CD in Pipelines
 # resources:
