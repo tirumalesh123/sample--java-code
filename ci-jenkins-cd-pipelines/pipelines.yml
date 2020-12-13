@@ -4,7 +4,7 @@ resources:
   - name: incoming_basic_hook
     type: IncomingWebhook
     configuration:
-      webhookName: in_hook_basic_1
+      webhookName: in_hook_int
  
   - name: spring_helm_chart_resource
     type: HelmChart

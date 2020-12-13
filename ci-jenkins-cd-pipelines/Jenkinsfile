@@ -80,7 +80,7 @@ pipeline {
         stage('Trigger JFrog Pipelines') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'incoming-web-hook-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                   sh "curl -XPOST https://$USERNAME:$PASSWORD@talyi-pipelines-api.jfrog.io/v1/projectIntegrations/11/hook"
+                   sh "curl -XPOST https://$USERNAME:$PASSWORD@talyi-pipelines-api.jfrog.io/v1/projectIntegrations/39/hook"
                 }
             }
         }
