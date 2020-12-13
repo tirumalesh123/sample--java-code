@@ -21,7 +21,7 @@ pipeline {
 
         stage('Configure Helm & Artifactory') {
             steps {
-                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'talyi-artifactory', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'admin.jfrog', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                    sh """
                     helm repo add helm https://talyi.jfrog.io/artifactory/helm --username ${env.USERNAME} --password ${env.PASSWORD}
                     helm repo update
