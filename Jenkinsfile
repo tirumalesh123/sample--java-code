@@ -11,21 +11,21 @@ pipeline {
         stage ('Artifactory Configuration') {
             steps {
                 rtServer (
-                    id: "talyi-artifactory",
-                    url: "https://talyi.jfrog.io/artifactory",
+                    id: "prathap-artifactory",
+                    url: "http://168.62.175.252:8082",
                     credentialsId: "admin.jfrog"
                 )
 
                 rtMavenResolver (
                     id: 'maven-resolver',
-                    serverId: 'talyi-artifactory',
+                    serverId: 'prathap-artifactory',
                     releaseRepo: 'libs-release',
                     snapshotRepo: 'libs-snapshot'
                 )  
                  
                 rtMavenDeployer (
                     id: 'maven-deployer',
-                    serverId: 'talyi-artifactory',
+                    serverId: 'prathap-artifactory',
                     releaseRepo: 'libs-release-local',
                     snapshotRepo: 'libs-snapshot-local',
                     threads: 6,
@@ -49,7 +49,7 @@ pipeline {
         stage ('Build Docker Image') {
             steps {
                 script {
-                    docker.build("talyi-docker.jfrog.io/" + "pet-clinic:1.0.${env.BUILD_NUMBER}")
+                    docker.build("pavanisam-docker.jfrog.io/" + "pet-clinic:1.0.${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
         stage ('Push Image to Artifactory') {
             steps {
                 rtDockerPush(
-                    serverId: "talyi-artifactory",
+                    serverId: "prathap-artifactory",
                     image: "talyi-docker.jfrog.io/" + "pet-clinic:1.0.${env.BUILD_NUMBER}",
                     targetRepo: 'docker',
                     properties: 'project-name=jfrog-blog-post;status=stable'
@@ -68,7 +68,7 @@ pipeline {
         stage ('Publish Build Info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "talyi-artifactory"
+                    serverId: "prathap-artifactory"
                 )
             }
         }
@@ -84,7 +84,7 @@ pipeline {
 
         stage('Configure Helm & Artifactory') {
             steps {
-                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'admin.jfrog', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'admin.jfrog', usernameVariable: 'admin', passwordVariable: 'Prathap@9502']]) {
                    sh """
                     helm repo add helm https://talyi.jfrog.io/artifactory/helm --username ${env.USERNAME} --password ${env.PASSWORD}
                     helm repo update
