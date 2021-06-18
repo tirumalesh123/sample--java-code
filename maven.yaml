@@ -1,10 +1,10 @@
 version: 1
 type: maven
 resolver:
-  serverId: artifactory_eu
+  serverId: tcs123
   snapshotRepo: libs-snapshot
   releaseRepo: libs-release
 deployer:
-  serverId: artifactory_eu
+  serverId: tcs123
   snapshotRepo: libs-snapshot-local
   releaseRepo: libs-release-local
