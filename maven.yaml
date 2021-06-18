@@ -1,10 +1,10 @@
 version: 1
 type: maven
 resolver:
-  serverId: tcs123
+  serverId: sirisha
   snapshotRepo: libs-snapshot
   releaseRepo: libs-release
 deployer:
-  serverId: tcs123
+  serverId: sirisha
   snapshotRepo: libs-snapshot-local
   releaseRepo: libs-release-local
