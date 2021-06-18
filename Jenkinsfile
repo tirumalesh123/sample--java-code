@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                git branch: 'master', url: "https://github.com/talitz/spring-petclinic-ci-cd-k8s-example.git"
+                git branch: 'master', url: "https://github.com/sangeethamprathap9502/simple--java-code.git"
             }
         }
 
